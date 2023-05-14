@@ -9,13 +9,20 @@ export async function POST(req) {
     try {
         await connect()
 
-        User.create({
-            username,
-            email,
-            password: await bcrypt.hash(password, 10)
-        })
-        
-        return new Response("Created New User!")
+        const userExists = await User.findOne({ email: email })
+
+        if (!userExists) {
+            User.create({
+                username,
+                email,
+                password: await bcrypt.hash(password, 10)
+            })
+    
+            return new Response("User created") // user is created!
+        } else {
+            return new Response("User already") // user already exists
+        }
+
     } catch (err) {
         console.error(err)
         return new Response("Failed to create user", { status: 500 })

@@ -2,14 +2,15 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { signIn, getProviders } from 'next-auth/react';
+import { useSearchParams } from 'next/navigation'
 import Image from 'next/image';
 import Link from 'next/link';
-// import User from '@/models/User'
 
 import GoogleIcon from '@/assets/svg/login/Google.svg'
 
 export default function page() {
-    // Get providers to display as SSO options
+    const seachParams = useSearchParams()
+
     const [providers, setProviders] = useState(null)
 
     useEffect(() => {
@@ -22,11 +23,9 @@ export default function page() {
         emailRef.current.value = "test@gmail.com"
     }, [])
 
-    // References for the login form
     const passwordRef = useRef()
     const emailRef = useRef()
 
-    // function that handles the submit of the credentials form (not related to SSO)
     function handleCredentialSignOn(e) {
         e.preventDefault()
         signIn("credentials", { email: emailRef.current.value, password: passwordRef.current.value, redirect: true, callbackUrl: '/' })
@@ -35,6 +34,19 @@ export default function page() {
     return (
         <div className='h-screen w-screen flex flex-col gap-2 justify-center bg-gradient-to-tr from-var1 to-var3'>
             <div className='p-5 rounded-md border border-neutral-200 flex flex-col gap-3 items-center bg-white shadow-md self-center'>
+                {seachParams.get('error') === "userNoExist" ? (
+                    <div className='bg-red-200 border border-red-300 px-2 py-1 rounded-md text-red-600 text-sm'>
+                        User not found.
+                    </div>
+                ) : seachParams.get('error') === "password" ? (
+                    <div className='bg-red-200 border border-red-300 px-2 py-1 rounded-md text-red-600 text-sm'>
+                        Incorrect password.
+                    </div>
+                ) : seachParams.get('error') === "userAlready" ? (
+                    <div className='bg-red-200 border border-red-300 px-2 py-1 rounded-md text-red-600 text-sm'>
+                        Email already used.
+                    </div>
+                ) : ''}
                 <h1 className='text-var1'>Sign In</h1>
                 <form onSubmit={e => handleCredentialSignOn(e)} className='flex flex-col gap-3'>
                     <input 

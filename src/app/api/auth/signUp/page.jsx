@@ -5,11 +5,17 @@ import { signIn, getProviders } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import axios from 'axios';
+import { useRouter } from 'next/navigation'
 
 import GoogleIcon from '@/assets/svg/login/Google.svg'
 
 export default function page() {
-    // Get providers to display as SSO options
+    const { push } = useRouter()
+
+    const usernameRef = useRef()
+    const emailRef = useRef()
+    const passwordRef = useRef()
+    
     const [providers, setProviders] = useState(null)
 
     useEffect(() => {
@@ -23,11 +29,6 @@ export default function page() {
         emailRef.current.value = "test@gmail.com"
     }, [])
 
-    // References for the Signup form
-    const usernameRef = useRef()
-    const emailRef = useRef()
-    const passwordRef = useRef()
-
     function handleCredentialSignOn(e) {
         e.preventDefault()
         axios.post("/api/createUser", {
@@ -35,8 +36,13 @@ export default function page() {
             username: usernameRef.current.value,
             password: passwordRef.current.value
         })
-        .then(() => {
-            signIn("credentials", { email: emailRef.current.value, username: usernameRef.current.value, password: passwordRef.current.value, redirect: true, callbackUrl: '/' })
+        .then(res => {
+            console.log(res)
+            if (res.data !== "User already") {
+                // signIn("credentials", { email: emailRef.current.value, username: usernameRef.current.value, password: passwordRef.current.value, redirect: true, callbackUrl: '/' })
+            } else {
+                push('/api/auth/signIn?error=userAlready')
+            }
         })
         .catch(err => console.error(err))
     }

@@ -49,7 +49,7 @@ const handler = NextAuth({
                     const userExists = await User.findOne({ email: user.email })
 
                     if (!userExists) {
-                        return '/api/auth/signUp?error=userNoExist'
+                        return '/api/auth/signIn?error=userNoExist'
                     } else {
                         if (await bcrypt.compare(user.password, userExists.password) === false) {
                             return '/api/auth/signIn?error=password'
