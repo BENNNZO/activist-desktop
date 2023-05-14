@@ -14,25 +14,49 @@ export async function GET(req, { params }) {
     }
 }
 
+export async function DELETE(req, { params }) {
+    try {
+        await connect()
+
+        await DataPoint.deleteMany({ User: params.userId })
+
+        return new Response("Deleted users data points")
+    } catch (err) {
+        console.log(err)
+        return new Response("Failed to delete users data points", err)
+    }
+}
+
 export async function POST(req, { params }) {
     try {
         await connect()
 
+        let randMood = Math.round(Math.random() * 100)
+        let randEnergy = randMood - ((Math.random() - 0.5) * 30)
+        if (randEnergy < 0) {
+            randEnergy = 0
+        }
+
+        // Date: new Date(`${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`),
+
         DataPoint.create({
             User: params.userId,
-            Breakfast: false,
-            Lunch: false,
-            Dinner: true,
-            GoodSleep: false,
-            Headache: false,
-            Exercise: true,
-            Shower: false,
-            Work: true,
-            Game: false,
-            Music: false,
-            Smoke: true,
-            Vape: true,
-            Drink: false
+            Date: new Date(),   
+            Mood: randMood,
+            Energy: randEnergy,
+            Breakfast: Math.random() > 0.5 ? true : false,
+            Lunch: Math.random() > 0.5 ? true : false,
+            Dinner: Math.random() > 0.5 ? true : false,
+            GoodSleep: Math.random() > 0.5 ? true : false,
+            Headache: Math.random() > 0.5 ? true : false,
+            Exercise: Math.random() > 0.5 ? true : false,
+            Shower: Math.random() > 0.5 ? true : false,
+            Work: Math.random() > 0.5 ? true : false,
+            Game: Math.random() > 0.5 ? true : false,
+            Music: Math.random() > 0.5 ? true : false,
+            Smoke: Math.random() > 0.5 ? true : false,
+            Vape: Math.random() > 0.5 ? true : false,
+            Drink: Math.random() > 0.5 ? true : false
         })
         return new Response("Created new data point")
     } catch (err) {

@@ -5,11 +5,13 @@ import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import axios from 'axios';
 
+import BarChart from '@/components/BarChart';
+
 export default function Home() {
     const { push } = useRouter()
     const { data: session } = useSession()
 
-    const [dataPoints, setDataPoints] = useState({})
+    const [dataPoints, setDataPoints] = useState([])
 
     useEffect(() => {
         if (session === null) push('/user/signIn')
@@ -18,9 +20,14 @@ export default function Home() {
 
     function handleCreateDataPoint() {
         console.log("creat point")
-        axios.post(`/api/data/${session?.user.id}`)
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
+        for (let i = 0; i <= 30; i++) {
+            axios.post(`/api/data/${session?.user.id}`)
+            .then(res => {
+                console.log(res)
+                handleFetchDataPoint()
+            })
+            .catch(err => console.log(err))
+        }
     }
 
     function handleFetchDataPoint() {
@@ -30,12 +37,22 @@ export default function Home() {
         .catch(err => console.log(err))
     }
 
+    function handleDeleteDataPoint() {
+        console.log("delete points")
+        axios.delete(`/api/data/${session?.user.id}`)
+        .then(res => {
+            console.log(res)
+            handleFetchDataPoint()
+        })
+        .catch(err => console.log(err))
+    }
+
     if (session) return (
         <main>
             <h1>Signed In</h1>
             <button onClick={() => signOut()} className='py-2 px-4 bg-slate-300 shadow-sm'>Sign Out</button>
             <img
-                src={session?.user.image ? session?.user.image : `https://source.boringavatars.com/beam/120/${session?.user.name}?colors=264653,2a9d8f,e9c46a,f4a261,e76f51`} 
+                src={session?.user.image ? session?.user.image : `https://source.boringavatars.com/beam/120/${session?.user.email}?colors=383961,6494aa,6494aa,30ff97,6494aa`} 
                 width={75}
                 height={75}
                 alt="profile picture"
@@ -44,11 +61,19 @@ export default function Home() {
             <p className='text_gradient font-extrabold text-5xl'>{session?.user.name}</p>
             <p>{session?.user.email}</p>
             <button onClick={handleCreateDataPoint} className='p-2 border border-black'>
-                Create DataPoint
+                Create Random DataPoint
             </button>
             <button onClick={handleFetchDataPoint} className='p-2 border border-black'>
                 Get DataPoints
             </button>
+            <button onClick={handleDeleteDataPoint} className='p-2 border border-black'>
+                Delete DataPoints
+            </button>
+            <div className='grid grid-cols-3'>
+                <BarChart 
+                    data={dataPoints}
+                />
+            </div>
             <pre>
                 {JSON.stringify(dataPoints, null, 4)}
             </pre>
