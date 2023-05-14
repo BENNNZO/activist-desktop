@@ -39,7 +39,7 @@ export default function page() {
         .then(res => {
             console.log(res)
             if (res.data !== "User already") {
-                // signIn("credentials", { email: emailRef.current.value, username: usernameRef.current.value, password: passwordRef.current.value, redirect: true, callbackUrl: '/' })
+                signIn("credentials", { email: emailRef.current.value, username: usernameRef.current.value, password: passwordRef.current.value, redirect: true, callbackUrl: '/' })
             } else {
                 push('/api/auth/signIn?error=userAlready')
             }
@@ -85,7 +85,7 @@ export default function page() {
                     <p className='font-thin text-xs whitespace-nowrap text-neutral-400'>Or Sign Up With</p>
                     <span className='w-full h-px bg-neutral-300'/>
                 </div>
-                {providers && Object.values(providers).map((provider) => (
+                {/* {providers && Object.values(providers).map((provider) => (
                     provider.name !== "Credentials" ? (
                         <button
                             key={provider.name}
@@ -102,7 +102,18 @@ export default function page() {
                             />
                         </button>
                     ) : ""
-                ))}
+                ))} */}
+                <button
+                onClick={() => signIn("google", { redirect: true, callbackUrl: '/' })}
+                className='p-1 rounded-full border border-neutral-200'
+                >
+                    <Image 
+                        src={GoogleIcon}
+                        width={25}
+                        height={25}
+                        alt="sign in with google"
+                    />
+                </button>
             </div>
             <p className='text-xs self-center text-neutral-300'>
                 Already have an account?

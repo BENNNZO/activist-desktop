@@ -47,7 +47,7 @@ export default function page() {
                         Email already used.
                     </div>
                 ) : ''}
-                <h1 className='text-var1'>Sign In</h1>
+                <h1 className='text-var1'>Login</h1>
                 <form onSubmit={e => handleCredentialSignOn(e)} className='flex flex-col gap-3'>
                     <input 
                         type="email" 
@@ -72,15 +72,15 @@ export default function page() {
                 </form>
                 <div className='flex flex-row w-full justify-center items-center gap-2'>
                     <span className='w-full h-px bg-neutral-300'/>
-                    <p className='font-thin text-xs whitespace-nowrap text-neutral-400'>Or Sign In With</p>
+                    <p className='font-thin text-xs whitespace-nowrap text-neutral-400'>Or Login With</p>
                     <span className='w-full h-px bg-neutral-300'/>
                 </div>
-                {providers && Object.values(providers).map((provider) => (
+                {/* {providers && Object.values(providers).map((provider) => (
                     provider.name !== "Credentials" ? (
                         <button
-                            key={provider.name}
-                            onClick={() => signIn(provider.id, { redirect: true, callbackUrl: '/' })}
-                            className='p-1 rounded-full border border-neutral-200'
+                        key={provider.name}
+                        onClick={() => signIn(provider.id, { redirect: true, callbackUrl: '/' })}
+                        className='p-1 rounded-full border border-neutral-200'
                         >
                             <Image 
                                 src={
@@ -92,7 +92,18 @@ export default function page() {
                             />
                         </button>
                     ) : ""
-                ))}
+                ))} */}
+                <button
+                onClick={() => signIn("google", { redirect: true, callbackUrl: '/' })}
+                className='p-1 rounded-full border border-neutral-200'
+                >
+                    <Image 
+                        src={GoogleIcon}
+                        width={25}
+                        height={25}
+                        alt="sign in with google"
+                    />
+                </button>
             </div>
             <p className='text-xs self-center text-neutral-300'>
                 Don't have an account?
