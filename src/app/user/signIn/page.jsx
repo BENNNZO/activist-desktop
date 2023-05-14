@@ -109,7 +109,7 @@ export default function page() {
                 Don't have an account?
                 <Link 
                     className=' text-sky-300 ml-1'
-                    href='/api/auth/signUp'
+                    href='/user/signUp'
                 >
                     Sign Up!
                 </Link>

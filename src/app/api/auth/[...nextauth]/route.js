@@ -29,15 +29,14 @@ const handler = NextAuth({
         })
     ],
     pages: {
-        signIn: '/api/auth/signIn'
+        signIn: '/user/signIn'
     },
     callbacks: {
         async session({ session }) {
             const sessionUser = await User.findOne({ email: session.user.email })
 
-            if (sessionUser) {
-                session.user.id = sessionUser._id.toString()
-            }
+            session.user.id = sessionUser._id.toString()
+            session.user.name = sessionUser.username
 
             return session
         },
@@ -49,10 +48,10 @@ const handler = NextAuth({
                     const userExists = await User.findOne({ email: user.email })
 
                     if (!userExists) {
-                        return '/api/auth/signIn?error=userNoExist'
+                        return '/user/signIn?error=userNoExist'
                     } else {
                         if (await bcrypt.compare(user.password, userExists.password) === false) {
-                            return '/api/auth/signIn?error=password'
+                            return '/user/signIn?error=password'
                         } else {
                             return true
                         }

@@ -31,7 +31,7 @@ export default function page() {
 
     function handleCredentialSignOn(e) {
         e.preventDefault()
-        axios.post("/api/createUser", {
+        axios.post("/api/user/createUser", {
             email: emailRef.current.value,
             username: usernameRef.current.value,
             password: passwordRef.current.value
@@ -41,7 +41,7 @@ export default function page() {
             if (res.data !== "User already") {
                 signIn("credentials", { email: emailRef.current.value, username: usernameRef.current.value, password: passwordRef.current.value, redirect: true, callbackUrl: '/' })
             } else {
-                push('/api/auth/signIn?error=userAlready')
+                push('/user/signIn?error=userAlready')
             }
         })
         .catch(err => console.error(err))
@@ -119,7 +119,7 @@ export default function page() {
                 Already have an account?
                 <Link 
                     className=' text-sky-300 ml-1'
-                    href='/api/auth/signIn'
+                    href='/user/signIn'
                 >
                     Login!
                 </Link>
