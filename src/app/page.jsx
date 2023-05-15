@@ -23,10 +23,9 @@ export default function Home() {
         console.log("creat point")
         let i = 0
         setInterval(() => {
-            if (i < 100) {
+            if (i < 50) {
                 axios.post(`/api/data/${session?.user.id}`)
-                .then(res => {
-                    console.log(res)
+                .then(() => {
                     handleFetchDataPoint()
                     i++
                 })
@@ -48,13 +47,12 @@ export default function Home() {
         console.log("delete points")
         axios.delete(`/api/data/${session?.user.id}`)
         .then(res => {
-            console.log(res)
             handleFetchDataPoint()
         })
         .catch(err => console.log(err))
     }
 
-    if (session) return (
+    if (session) { return (
         <main className='bg-var1'>
             <h1>Signed In</h1>
             <button onClick={() => signOut()} className='py-2 px-4 bg-slate-300 shadow-sm'>Sign Out</button>
@@ -99,5 +97,9 @@ export default function Home() {
                 {JSON.stringify(dataPoints, null, 4)}
             </pre>
         </main>
+    )} else return (
+        <div className='w-screen h-screen grid place-items-center'>
+            <h1 className='text-4xl'>Loading</h1>
+        </div>
     )
 }
