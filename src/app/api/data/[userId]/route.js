@@ -31,17 +31,20 @@ export async function POST(req, { params }) {
     try {
         await connect()
 
-        let randMood = Math.round(Math.random() * 100)
-        let randEnergy = randMood - ((Math.random() - 0.5) * 30)
+        let randMood = Math.round(Math.random() * 10)
+        let randEnergy = Math.round(randMood - ((Math.random() - 0.5) * 3))
         if (randEnergy < 0) {
             randEnergy = 0
+        } else if (randEnergy > 10) {
+            randEnergy = 10
         }
 
         // Date: new Date(`${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`),
 
         DataPoint.create({
             User: params.userId,
-            Date: new Date(),   
+            Date: new Date(),
+            FormattedDate: "May, 2023",
             Mood: randMood,
             Energy: randEnergy,
             Breakfast: Math.random() > 0.5 ? true : false,

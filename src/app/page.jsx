@@ -5,7 +5,8 @@ import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import axios from 'axios';
 
-import BarChart from '@/components/BarChart';
+import LineGraph from '@/components/LineGraph';
+import RadarGraph from '@/components/RadarGraph'
 
 export default function Home() {
     const { push } = useRouter()
@@ -20,14 +21,20 @@ export default function Home() {
 
     function handleCreateDataPoint() {
         console.log("creat point")
-        for (let i = 0; i <= 30; i++) {
-            axios.post(`/api/data/${session?.user.id}`)
-            .then(res => {
-                console.log(res)
-                handleFetchDataPoint()
-            })
-            .catch(err => console.log(err))
-        }
+        let i = 0
+        setInterval(() => {
+            if (i < 30) {
+                axios.post(`/api/data/${session?.user.id}`)
+                .then(res => {
+                    console.log(res)
+                    handleFetchDataPoint()
+                    i++
+                })
+                .catch(err => console.log(err))
+            } else {
+                clearInterval()
+            }
+        }, 50);
     }
 
     function handleFetchDataPoint() {
@@ -48,7 +55,7 @@ export default function Home() {
     }
 
     if (session) return (
-        <main>
+        <main className='bg-var1'>
             <h1>Signed In</h1>
             <button onClick={() => signOut()} className='py-2 px-4 bg-slate-300 shadow-sm'>Sign Out</button>
             <img
@@ -69,9 +76,27 @@ export default function Home() {
             <button onClick={handleDeleteDataPoint} className='p-2 border border-black'>
                 Delete DataPoints
             </button>
-            <div className='grid grid-cols-3'>
-                <BarChart 
+            <div className='flex flex-row flex-wrap'>
+                <LineGraph
                     data={dataPoints}
+                    keys={[
+                        {
+                            title: "Mood",
+                            color: "#8884d8" 
+                        },
+                        {
+                            title: "Energy",
+                            color: "#82ca9d" 
+                        }
+                    ]}
+                />
+                <RadarGraph
+                    data={dataPoints}
+                    keys={{ title: "Mood", color: "#8884d8" }}
+                />
+                <RadarGraph
+                    data={dataPoints}
+                    keys={{ title: "Energy", color: "#82ca9d" }}
                 />
             </div>
             <pre>
