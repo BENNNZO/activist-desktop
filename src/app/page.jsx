@@ -23,7 +23,7 @@ export default function Home() {
         console.log("creat point")
         let i = 0
         setInterval(() => {
-            if (i < 30) {
+            if (i < 100) {
                 axios.post(`/api/data/${session?.user.id}`)
                 .then(res => {
                     console.log(res)
@@ -93,10 +93,6 @@ export default function Home() {
                 <RadarGraph
                     data={dataPoints}
                     keys={{ title: "Mood", color: "#8884d8" }}
-                />
-                <RadarGraph
-                    data={dataPoints}
-                    keys={{ title: "Energy", color: "#82ca9d" }}
                 />
             </div>
             <pre>

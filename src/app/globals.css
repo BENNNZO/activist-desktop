@@ -25,5 +25,13 @@
 } */
 
 .text_gradient {
-    @apply text-transparent bg-gradient-to-tr from-var2 to-var4 bg-clip-text inline-block
+    @apply text-transparent bg-gradient-to-tr from-var2 to-var4 bg-clip-text
+}
+
+.text_gradient2 {
+    @apply text-transparent bg-gradient-to-tr from-var1 to-var3 bg-clip-text
+}
+
+.text_gradient3 {
+    @apply text-transparent bg-gradient-to-tr from-var1 to-var4 bg-clip-text
 }
