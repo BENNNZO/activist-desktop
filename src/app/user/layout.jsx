@@ -1,7 +1,6 @@
-import './globals.css'
+import '../globals.css'
 import { Poppins } from 'next/font/google'
 import Provider from '@/utils/Provider'
-import NavBar from '@/components/NavBar'
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '700'] })
 
@@ -15,7 +14,6 @@ export default function RootLayout({ children }) {
         <html lang="en" className='overflow-x-hidden'>
             <body className={poppins.className}>
                 <Provider>
-                    <NavBar />
                     {children}
                 </Provider>
             </body>

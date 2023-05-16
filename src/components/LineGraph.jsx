@@ -1,50 +1,24 @@
 "use client"
 
 import React, { useState, useEffect } from 'react';
-import { LineChart, Line, CartesianGrid, Tooltip } from 'recharts';
+import { LineChart, Line, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import Image from 'next/image';
 
 import dropdownArrow from '@/assets/svg/dropdown/arrow.svg'
 
 export default function LineGraph(props) {
     const [dropdown, setDropdown] = useState(false)
-    const [timeFrame, setTimeFrame] = useState("1m")
+    const [timeFrame, setTimeFrame] = useState("MAX")
     const [data, setData] = useState([])
+    const [type, setType] = useState("basis")
 
     useEffect(() => {
-        switch (timeFrame) {
-            case "MAX":
-                // let extraData = props.data
-                // extraData.slice(props.data.length - data.length, data.length)
-                // extraData.slice(0, data.length)
-                // setData(data => [...data, ...extraData])
-                // let i = 0
-                // setInterval(() => {
-                //     if (data.length + i <= props.data.length) {
-                //         setData(data => [...data, extraData[i]])
-                //         i++
-                //     } else {
-                //         clearInterval()
-                //     }
-                // }, 100);
-                setData(props.data)
-                break
-            case "1m":
-                setData([])
-                setData(props.data.slice(0, 30))
-                break
-            case "1w":
-                setData(props.data.slice(0, 7))
-                break
-            default:
-                setData(props.data)
-                break
-        }
-    }, [timeFrame, props.data])
+        setData(props.data)
+    }, [props.data])
 
     return (
-        <div className='flex flex-col gap-2 items-center p-5'>
-            <div className='shadow-md rounded-xl bg-var5 overflow-hidden'>
+        <div className='flex flex-col gap-2 items-center p-5 w-full'>
+            <div className='shadow-md rounded-xl bg-white overflow-hidden w-full h-full'>
                 <div className='flex flex-row justify-between px-4'>
                     <div className='flex flex-row justify-center gap-5'>
                         {props.keys.map(key => (
@@ -70,7 +44,7 @@ export default function LineGraph(props) {
                         </div>
                         <ul 
                             style={dropdown ? { display: 'block' } : { display: 'none' }} 
-                            className='absolute top-10 bg-var5 z-10 w-full border border-neutral-300 rounded-b-md'
+                            className='absolute top-10 bg-white z-10 w-full border border-neutral-300 rounded-b-md'
                         >
                             <li
                                 onClick={() => {
@@ -102,13 +76,35 @@ export default function LineGraph(props) {
                         </ul>
                     </div>
                 </div>
-                <LineChart width={730} height={340} data={data} margin={{ top: 0, left: 0, right: 0, bottom: 0 }}>
-                    <CartesianGrid strokeDasharray="5 5" vertical={false}/>
-                    <Tooltip />
-                    {props.keys.map(key => (
-                        <Line type="basis" dataKey={key.title} stroke={key.color} strokeWidth={3} dot={false} activeDot={false} animationDuration={250} />
-                    ))}
-                </LineChart>
+                <ResponsiveContainer height="90%">
+                    <LineChart 
+                        data={
+                            timeFrame === "1m" ? data.slice(data.length - 30) : 
+                            timeFrame === "1w" ? data.slice(data.length - 7) : data
+                        } 
+                        margin={{ top: 0, left: 15, right: 15, bottom: 0 }}
+                    >
+                        <CartesianGrid strokeDasharray="5 5" vertical={false}/>
+                        <Tooltip />
+                        {props.keys.map((key, i) => (
+                            <Line key={i} type={type} dataKey={key.title} stroke={key.color} strokeWidth={3} dot={false} activeDot={false} animationDuration={250} />
+                        ))}
+                    </LineChart>
+                </ResponsiveContainer>
+                {/* <button
+                    onClick={() => setType(type => {
+                        if (type === "basis") {
+                            return "monotone"
+                        } else if (type === "monotone") {
+                            return "linear"
+                        } else {
+                            return "basis"
+                        }
+                    })}
+                    className='p-1 bg-black text-white'
+                >
+                    Type
+                </button> */}
             </div>
         </div>
     )

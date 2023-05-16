@@ -16,9 +16,7 @@ module.exports = {
         "var1": "var(--1)",
         "var2": "var(--2)",
         "var3": "var(--3)",
-        "var3-dark": "var(--3-dark)",
         "var4": "var(--4)",
-        "var4-dark": "var(--4-dark)",
         "var5": "var(--5)",
         // "grey": {
         //   "100": "#1a1a1a",
