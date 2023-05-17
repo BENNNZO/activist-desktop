@@ -27,8 +27,8 @@ export default function LineGraph(props) {
     }, [props.data, set])
 
     return (
-        <div className='flex flex-col gap-2 items-center p-5'>
-            <div className='shadow-md rounded-xl p-5 bg-white'>
+        <div className='flex flex-col gap-2 items-center'>
+            <div className='shadow-md rounded-xl p-5 bg-white w-full'>
                 <div className='relative h-8 flex justify-center items-center'>
                     <AnimatePresence initial={false}>
                         {set ? 

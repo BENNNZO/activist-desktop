@@ -3,7 +3,7 @@
 import React from 'react';
 import { LineChart, Line, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-export default function LineGraph(props) {
+export default function LineGraphBoolean(props) {
     return (
         <div className='flex flex-col gap-2 items-center w-full'>
             <div className='shadow-md rounded-xl bg-white overflow-hidden w-full h-full'>
@@ -17,6 +17,9 @@ export default function LineGraph(props) {
                         ))}
                     </div>
                 </div>
+                <pre>
+                    {/* {JSON.stringify(props.data, null, 4)} */}
+                </pre>
                 <ResponsiveContainer height="90%">
                     <LineChart 
                         data={props.data} 
