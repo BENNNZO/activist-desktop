@@ -21,7 +21,7 @@ export default function page() {
 
     const [dataPoints, setDataPoints] = useState([])
     const [userData, setUserData] = useState({})
-    const [timeFrame, setTimeFrame] = useState("MAX")
+    const [timeFrame, setTimeFrame] = useState([[], "N/a"])
     const [dropdown, setDropdown] = useState(false)
 
     useEffect(() => {
@@ -35,7 +35,10 @@ export default function page() {
             push('/user/signIn')
         } else if (session !== undefined || null) {
             axios.get(`/api/data/${params.userId}`)
-            .then(res => setDataPoints(res.data))
+            .then(res => {
+                setDataPoints(res.data)
+                setTimeFrame([res.data, "MAX"])
+            })
             .catch(err => console.log(err))
         }
     }, [session])
@@ -92,7 +95,7 @@ export default function page() {
                     <div></div>
                     <div className='w-24 relative'>
                         <div className={`border border-neutral-300 px-2 flex flex-row justify-between py-1 select-none ${dropdown ? 'rounded-t-md' : 'rounded-md'}`}>
-                            <p className='text-neutral-600'>{timeFrame}</p>
+                            <p className='text-neutral-600'>{timeFrame[1]}</p>
                             <Image 
                                 src={dropdownArrow}
                                 height={15}
@@ -107,19 +110,37 @@ export default function page() {
                         >
                             <li 
                                 className='text-center text-sm px-2 py-1 text-neutral-600 hover:bg-slate-50'
-                                onClick={() => setTimeFrame("1w")}
+                                onClick={() => setTimeFrame([dataPoints.slice(-7), "1w"])}
                             >
                                 <p>1 week</p>
                             </li>
                             <li 
                                 className='text-center text-sm px-2 py-1 text-neutral-600 hover:bg-slate-50 border-t border-neutral-300'
-                                onClick={() => setTimeFrame("1m")}
+                                onClick={() => setTimeFrame([dataPoints.slice(-30), "1m"])}
                             >
                                 <p>1 month</p>
                             </li>
                             <li 
                                 className='text-center text-sm px-2 py-1 text-neutral-600 hover:bg-slate-50 border-t border-neutral-300'
-                                onClick={() => setTimeFrame("MAX")}
+                                onClick={() => setTimeFrame([dataPoints.slice(-90), "3m"])}
+                            >
+                                <p>3 months</p>
+                            </li>
+                            <li 
+                                className='text-center text-sm px-2 py-1 text-neutral-600 hover:bg-slate-50 border-t border-neutral-300'
+                                onClick={() => setTimeFrame([dataPoints.slice(-180), "6m"])}
+                            >
+                                <p>6 months</p>
+                            </li>
+                            <li 
+                                className='text-center text-sm px-2 py-1 text-neutral-600 hover:bg-slate-50 border-t border-neutral-300'
+                                onClick={() => setTimeFrame([dataPoints.slice(-365), "1y"])}
+                            >
+                                <p>1 year</p>
+                            </li>
+                            <li 
+                                className='text-center text-sm px-2 py-1 text-neutral-600 hover:bg-slate-50 border-t border-neutral-300'
+                                onClick={() => setTimeFrame([dataPoints, "MAX"])}
                             >
                                 <p>MAX</p>
                             </li>
@@ -127,77 +148,33 @@ export default function page() {
                     </div>
                 </div>
             </div>
-            <div className='flex flex-row px-5 gap-5 w-full'>
+            <div className='flex flex-row px-5 gap-5 w-full h-96'>
                 <LineGraph
-                    data={
-                        timeFrame === "1w" ? dataPoints.slice(-7) :
-                        timeFrame === "1m" ? dataPoints.slice(-30) :
-                        dataPoints
-                    }
+                    data={timeFrame[0]}
                     keys={[
                         { title: "Mood", color: "#8884d8" },
                         { title: "Energy", color: "#82ca9d" }
                     ]}
                 />
                 <RadarGraph
-                    data={
-                        timeFrame === "1w" ? dataPoints.slice(-7) :
-                        timeFrame === "1m" ? dataPoints.slice(-30) :
-                        dataPoints
-                    }
+                    data={timeFrame[0]}
                     keys={{ title: "Mood", color: "#8884d8" }}
                 />
             </div>
-            <div className='mt-5 px-5'>
+            <div className='mt-5 px-5 h-96'>
                 <LineGraphBoolean
-                    data={
-                        timeFrame === "1w" ? dataPoints.slice(-7) :
-                        timeFrame === "1m" ? dataPoints.slice(-30) :
-                        dataPoints
-                    }
+                    data={timeFrame[0]}
                     keys={[
-                        { title: "Mood", color: "#8884d8" },
+                        { title: "Breakfast", color: "#8884d8" },
                         { title: "Energy", color: "#82ca9d" }
                     ]}
                 />
             </div>
             <div className='h-[500px] p-5 w-full'>
                 <BooleanGraph 
-                    data={
-                        timeFrame === "1w" ? dataPoints.slice(-7) :
-                        timeFrame === "1m" ? dataPoints.slice(-30) :
-                        dataPoints
-                    }
-                    dataKeys={[
-                        "Breakfast", 
-                        "Lunch", 
-                        "Dinner",
-                        "GoodSleep",
-                        "Headache",
-                        "Exercise",
-                        "Shower",
-                        "Work",
-                        "Game",
-                        "Music",
-                        "Smoke",
-                        "Vape",
-                        "Drink"
-                    ]}
-                    dataColors={[
-                        "#8884D8", 
-                        "#82CA9D", 
-                        "#e09c89",
-                        "#8884D8", 
-                        "#82CA9D", 
-                        "#e09c89",
-                        "#8884D8", 
-                        "#82CA9D", 
-                        "#e09c89",
-                        "#8884D8", 
-                        "#82CA9D", 
-                        "#e09c89",
-                        "#8884D8"
-                    ]}
+                    data={timeFrame[0]}
+                    dataKeys={["Breakfast", "Lunch", "Dinner", "GoodSleep", "Headache", "Exercise", "Shower", "Work", "Game", "Music", "Smoke", "Vape", "Drink" ]}
+                    dataColors={["#8884D8",  "#82CA9D",  "#e09c89", "#8884D8",  "#82CA9D",  "#e09c89", "#8884D8",  "#82CA9D",  "#e09c89", "#8884D8",  "#82CA9D",  "#e09c89", "#8884D8" ]}
                 />
             </div>
             <button onClick={handleCreateDataPoint} className='text-xs border text-white ml-5 border-black'>

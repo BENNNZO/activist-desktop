@@ -7,7 +7,7 @@ export default function LineGraph(props) {
     return (
         <div className='flex flex-col gap-2 items-center w-full'>
             <div className='shadow-md rounded-xl bg-white overflow-hidden w-full h-full'>
-                <div className='flex flex-row justify-between px-4'>
+                <div className='flex flex-row justify-between px-4 h-[15%]'>
                     <div className='flex flex-row justify-center gap-5'>
                         {props.keys.map(key => (
                             <div className='flex flex-row gap-2 items-center py-3'>
@@ -17,10 +17,10 @@ export default function LineGraph(props) {
                         ))}
                     </div>
                 </div>
-                <ResponsiveContainer height="90%">
+                <ResponsiveContainer height="85%">
                     <LineChart 
                         data={props.data} 
-                        margin={{ top: 0, left: 15, right: 15, bottom: 0 }}
+                        margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
                     >
                         <CartesianGrid strokeDasharray="5 5" vertical={false}/>
                         <Tooltip />

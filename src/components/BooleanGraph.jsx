@@ -52,27 +52,25 @@ export default function BooleanGraph(props) {
     }, data)
 
     return (
-        <>
-            <div className='w-full h-full flex flex-row'>
-                <div className='flex flex-col justify-between py-5 gap-1'>
-                    {props.dataKeys.map((key, i) => ( // list of keys on left of graph
-                        <div className='relative flex flex-row gap-5 items-center rounded-l-full px-1 pr-5 overflow-hidden h-[7rem]'>
-                            <div className='absolute top-0 left-0 w-full h-full opacity-10' style={{ backgroundColor: `${props.dataColors[i]}` }} />
-                            <div className='w-4 h-4 rounded-full' style={{ backgroundColor: `${props.dataColors[i]}` }} />
-                            <p style={{ color: `${props.dataColors[i]}` }}>{key}</p>
-                        </div>
-                    ))}
-                </div>
-                <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" className='overflow-visible py-5 px-8 bg-white rounded-lg shadow-md z-10'>
-                    {linesData.map((line, i) => ( // adds <g> wrapper around each row for hover effects
-                        <g key={i} strokeWidth="10" className='stroke-[15] opacity-50 hover:stroke-[30] hover:opacity-100 transition-all' height="10">
-                            {line.map((subLine, i) => (
-                                subLine
-                            ))}
-                        </g>
-                    ))}
-                </svg>
+        <div className='w-full h-full flex flex-row'>
+            <div className='flex flex-col justify-between py-5 gap-1'>
+                {props.dataKeys.map((key, i) => ( // list of keys on left of graph
+                    <div className='relative flex flex-row gap-5 items-center rounded-l-full px-1 pr-5 overflow-hidden h-[7rem]'>
+                        <div className='absolute top-0 left-0 w-full h-full opacity-10' style={{ backgroundColor: `${props.dataColors[i]}` }} />
+                        <div className='w-4 h-4 rounded-full' style={{ backgroundColor: `${props.dataColors[i]}` }} />
+                        <p style={{ color: `${props.dataColors[i]}` }}>{key}</p>
+                    </div>
+                ))}
             </div>
-        </>
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" className='overflow-visible py-5 px-8 bg-white rounded-lg shadow-md z-10'>
+                {linesData.map((line, i) => ( // adds <g> wrapper around each row for hover effects
+                    <g key={i} strokeWidth="10" className='stroke-[15] opacity-50 hover:stroke-[30] hover:opacity-100 transition-all' height="10">
+                        {line.map((subLine, i) => (
+                            subLine
+                        ))}
+                    </g>
+                ))}
+            </svg>
+        </div>
     )
 }
