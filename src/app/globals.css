@@ -36,3 +36,23 @@
 .text_gradient3 {
     @apply text-transparent bg-gradient-to-tr from-var1 to-var4 bg-clip-text
 }
+
+.boolean_checkbox {
+    position: absolute;
+    display: hidden;
+    width: 0;
+    height: 0;
+}
+
+.boolean_custom_checkbox {
+    height: 50%;
+    aspect-ratio: 1;
+    border-radius: 100%;
+    transition: all 0.3s ease-out;
+    transform: scale(0.5);
+}
+
+.boolean_checkbox:checked ~ .boolean_custom_checkbox {
+    transform: scale(1);
+    
+}

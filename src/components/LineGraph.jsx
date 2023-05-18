@@ -6,7 +6,7 @@ import { LineChart, Line, CartesianGrid, Tooltip, ResponsiveContainer, Brush } f
 export default function LineGraph(props) {
     return (
         <div className='flex flex-col gap-2 items-center w-full'>
-            <div className='shadow-md rounded-xl bg-white overflow-hidden w-full h-full'>
+            <div className='shadow-md rounded-t-xl bg-white overflow-hidden w-full h-full'>
                 <div className='flex flex-row justify-between px-4 h-[15%]'>
                     <div className='flex flex-row justify-center gap-5'>
                         {props.keys.map(key => (
@@ -22,7 +22,7 @@ export default function LineGraph(props) {
                         data={props.data} 
                         margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
                     >
-                        <Brush />
+                        <Brush stroke='#8884d8'/>
                         <CartesianGrid strokeDasharray="5 5" vertical={false}/>
                         <Tooltip />
                         {props.keys.map((key, i) => (
