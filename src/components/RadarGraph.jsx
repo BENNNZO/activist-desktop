@@ -61,7 +61,7 @@ export default function LineGraph(props) {
                         dataKey="Key"
                         allowDuplicatedCategory={false}
                     />
-                    <Radar dataKey="DataPoint" stroke={set ? '#8884d8' : '#82ca9d'} fill={set ? '#8884d8' : '#82ca9d'} fillOpacity={0.5} animationDuration={150}/>
+                    <Radar dataKey="DataPoint" strokeWidth={2} type='basis' stroke={set ? '#8884d8' : '#82ca9d'} fill={set ? '#8884d8' : '#82ca9d'} fillOpacity={0.5} animationDuration={150}/>
                 </RadarChart>
             </ResponsiveContainer>
             <button onClick={() => setSet(set => !set)} className='text-center w-full border border-neutral-300 py-1 rounded-md h-[10%] text-neutral-600'>

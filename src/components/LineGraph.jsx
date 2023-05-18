@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import { LineChart, Line, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, CartesianGrid, Tooltip, ResponsiveContainer, Brush } from 'recharts';
 
 export default function LineGraph(props) {
     return (
@@ -22,6 +22,7 @@ export default function LineGraph(props) {
                         data={props.data} 
                         margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
                     >
+                        <Brush />
                         <CartesianGrid strokeDasharray="5 5" vertical={false}/>
                         <Tooltip />
                         {props.keys.map((key, i) => (

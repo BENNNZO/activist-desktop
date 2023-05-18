@@ -64,7 +64,7 @@ export default function BooleanGraph(props) {
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" className='overflow-visible py-5 px-8 bg-white rounded-lg shadow-md z-10'>
                 {linesData.map((line, i) => ( // adds <g> wrapper around each row for hover effects
-                    <g key={i} strokeWidth="10" className='stroke-[15] opacity-50 hover:stroke-[30] hover:opacity-100 transition-all' height="10">
+                    <g key={i} className='stroke-[5] opacity-50 hover:stroke-[10] hover:opacity-100 transition-all' height="10">
                         {line.map((subLine, i) => (
                             subLine
                         ))}

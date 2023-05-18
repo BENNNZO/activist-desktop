@@ -63,7 +63,10 @@ export default function page() {
     function handleFetchDataPoint() {
         console.log("fetch points")
         axios.get(`/api/data/${session?.user.id}`)
-        .then(res => setDataPoints(res.data))
+        .then(res => {
+            setDataPoints(res.data)
+            setTimeFrame([res.data, "MAX"])
+        })
         .catch(err => console.log(err))
     }
 
@@ -166,7 +169,8 @@ export default function page() {
                     data={timeFrame[0]}
                     keys={[
                         { title: "Breakfast", color: "#8884d8" },
-                        { title: "Energy", color: "#82ca9d" }
+                        { title: "Lunch", color: "#82ca9d" },
+                        { title: "Dinner", color: "#e09c89" }
                     ]}
                 />
             </div>
