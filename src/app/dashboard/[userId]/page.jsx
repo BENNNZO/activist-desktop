@@ -168,16 +168,16 @@ export default function page() {
                 <LineGraphBoolean
                     data={timeFrame[0]}
                     keys={[
-                        { title: "Breakfast", color: "#8884d8" },
-                        { title: "Lunch", color: "#82ca9d" },
-                        { title: "Dinner", color: "#e09c89" },
-                        { title: "GoodSleep", color: "#347ced" },
-                        { title: "Headache", color: "#d4c419" },
-                        { title: "Exercise", color: "#db4646" },
-                        { title: "Shower", color: "#e820bd" },
-                        { title: "Work", color: "#20cde8" },
-                        { title: "Game", color: "#20e834" },
-                        { title: "Music", color: "#000000" },
+                        { title: "Breakfast", color: "#8884d8" }, // purple
+                        { title: "Lunch", color: "#82ca9d" }, // light green
+                        { title: "Dinner", color: "#e09c89" }, // light orange
+                        { title: "GoodSleep", color: "#347ced" }, // blue
+                        { title: "Headache", color: "#bfbe78" }, // yellow
+                        { title: "Exercise", color: "#c76767" }, // red
+                        { title: "Shower", color: "#e820bd" }, // pink
+                        { title: "Work", color: "#81c6c7" }, // teal
+                        { title: "Game", color: "#409946" }, // lime green
+                        { title: "Music", color: "#000000" }, // black
                         // { title: "Smoke", color: "#e09c89" },
                         // { title: "Vape", color: "#e09c89" },
                         // { title: "Drink", color: "#e09c89" }
@@ -188,7 +188,7 @@ export default function page() {
                 <BooleanGraph 
                     data={timeFrame[0]}
                     dataKeys={["Breakfast", "Lunch", "Dinner", "GoodSleep", "Headache", "Exercise", "Shower", "Work", "Game", "Music", "Smoke", "Vape", "Drink" ]}
-                    dataColors={["#8884D8",  "#82CA9D",  "#e09c89", "#8884D8",  "#82CA9D",  "#e09c89", "#8884D8",  "#82CA9D",  "#e09c89", "#8884D8",  "#82CA9D",  "#e09c89", "#8884D8" ]}
+                    dataColors={["#8884D8", "#82CA9D", "#e09c89", "#8884D8", "#82CA9D", "#e09c89", "#8884D8", "#82CA9D", "#e09c89", "#8884D8", "#82CA9D", "#e09c89", "#8884D8" ]}
                 />
             </div>
             <button onClick={handleCreateDataPoint} className='text-xs border text-white ml-5 border-black'>
