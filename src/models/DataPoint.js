@@ -9,6 +9,7 @@ const DataPointSchema = new Schema({
 
     // date created
     Date: Date,
+    TimeAwake: [Number],
     FormattedDate: String,
 
     // vars

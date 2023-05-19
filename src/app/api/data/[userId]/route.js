@@ -44,6 +44,7 @@ export async function POST(req, { params }) {
         DataPoint.create({
             User: params.userId,
             Date: new Date(),
+            TimeAwake: [Math.round(Math.random() * 11), Math.round(Math.random() * 11 + 13)],
             FormattedDate: "May, 2023",
             Mood: randMood,
             Energy: randEnergy,

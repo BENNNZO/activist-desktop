@@ -7,10 +7,13 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import Image from 'next/image';
 
-import LineGraph from '@/components/LineGraph';
 import RadarGraph from '@/components/RadarGraph'
 import BooleanGraph from '@/components/BooleanGraph';
+import EnergyMoodGraph from '@/components/EnergyMoodGraph';
 import LineGraphBoolean from '@/components/LineGraphBoolean';
+import LineGraphBoolean2 from '@/components/LineGraphBoolean2';
+import TimeAwakeAreaGraph from '@/components/TimeAwakeAreaGraph';
+import TimeAwakeBarGraph from '@/components/TimeAwakeBarGraph';
 
 import dropdownArrow from '@/assets/svg/dropdown/arrow.svg'
 
@@ -151,19 +154,34 @@ export default function page() {
                     </div>
                 </div>
             </div>
-            <div className='flex flex-row px-5 gap-5 w-full h-96'>
-                <LineGraph
+            <div className='mt-5 px-5 h-96 w-full flex flex-row gap-5'>
+                <TimeAwakeAreaGraph
                     data={timeFrame[0]}
-                    keys={[
-                        { title: "Mood", color: "#8884d8" },
-                        { title: "Energy", color: "#82ca9d" }
-                    ]}
                 />
-                <RadarGraph
+                <TimeAwakeBarGraph
                     data={timeFrame[0]}
-                    keys={{ title: "Mood", color: "#8884d8" }}
                 />
             </div>
+            {/* <div className='mt-5 px-5 h-96 w-full'>
+                <LineGraphBoolean2
+                    data={timeFrame[0]}
+                    keys={[
+                        { title: "Breakfast", color: "#8884d8" }, // purple
+                        { title: "Lunch", color: "#82ca9d" }, // light green
+                        { title: "Dinner", color: "#e09c89" }, // light orange
+                        { title: "GoodSleep", color: "#347ced" }, // blue
+                        { title: "Headache", color: "#bfbe78" }, // yellow
+                        { title: "Exercise", color: "#c76767" }, // red
+                        { title: "Shower", color: "#e820bd" }, // pink
+                        { title: "Work", color: "#81c6c7" }, // teal
+                        { title: "Game", color: "#409946" }, // lime green
+                        { title: "Music", color: "#000000" }, // black
+                        // { title: "Smoke", color: "#e09c89" },
+                        // { title: "Vape", color: "#e09c89" },
+                        // { title: "Drink", color: "#e09c89" }
+                   , ]}
+                />
+            </div> */}
             <div className='mt-5 px-5 h-96 w-full'>
                 <LineGraphBoolean
                     data={timeFrame[0]}
@@ -182,6 +200,19 @@ export default function page() {
                         // { title: "Vape", color: "#e09c89" },
                         // { title: "Drink", color: "#e09c89" }
                     ]}
+                />
+            </div>
+            <div className='flex flex-row px-5 gap-5 w-full h-96'>
+                <EnergyMoodGraph
+                    data={timeFrame[0]}
+                    keys={[
+                        { title: "Mood", color: "#8884d8" },
+                        { title: "Energy", color: "#82ca9d" }
+                    ]}
+                />
+                <RadarGraph
+                    data={timeFrame[0]}
+                    keys={{ title: "Mood", color: "#8884d8" }}
                 />
             </div>
             <div className='h-[500px] p-5 w-full'>

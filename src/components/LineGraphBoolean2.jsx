@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { LineChart, Line, CartesianGrid, Tooltip, ResponsiveContainer, Brush } from 'recharts';
 
-export default function LineGraphBoolean(props) {
+export default function LineGraphBoolean2(props) {
     const [avgData, setAvgData] = useState([])
     const [prevDays, setPrevDays] = useState(30)
     const [activeKeys, setActiveKeys] = useState(props.keys.slice(0, 3))
@@ -16,18 +16,62 @@ export default function LineGraphBoolean(props) {
                 let key = activeKeys[k].title
                 let value = props.data[i][key]
                 let sum = 0
-    
-                if (i > prevDays) { // add 10 for each true value looped by the prevDays
+
+                if (i < prevDays - 1) {
                     for (let j = 0; j < prevDays; j++) {
-                        sum = sum + (props.data[i - j][key] ? 10 : 0)
+                        sum = sum + props.data[Math.max(0, i + (prevDays / 2) - j)] ? 10 : 0
                     }
-                } else {
-                    for (let j = 0; j < (i); j++) {
-                        sum = sum + (props.data[i - j][key] ? 10 : 0)
+                } else if (i > prevDays - 1 && i < props.data.length - prevDays) {
+                    for (let j = 0; j < prevDays; j++) {
+                        sum = sum + props.data[i + (prevDays / 2) - j] ? 10 : 0
+                    }
+                } else if (i > props.data.length - prevDays) {
+                    for (let j = 0; j < prevDays; j++) {
+                        sum = sum + props.data[Math.min(props.data.length - 1, i + (prevDays / 2) - j)] ? 10 : 0
                     }
                 }
+
+                // if (i > prevDays && i < (props.data.length - prevDays)) {
+                //     for (let j = 0; j < prevDays; j++) {
+                //         lastValues = lastValues + props.data[(i + (prevDays / 2)) - j][key] ? 10 : 0
+                //     }
+                // }
+    
+                // if (i <= (props.data.length - (prevDays / 2)) && i >= (prevDays / 2)) { // add 10 for each true value looped by the prevDays
+                //     // for (let j = 0; j < prevDays; j++) { // middle
+                //     //     console.log((i + (prevDays / 2)) - j)
+                //     //     lastValues = lastValues + (props.data[(i + (prevDays / 2)) - j][key] ? 10 : 0)
+                //     // }
+                //     for (let j = 0; j < (prevDays / 2); j++) { // middle
+                //         // console.log((i + (prevDays / 2)) - j)
+                //         console.log(`${props.data[(i + (prevDays / 4)) - j]}`)
+                //         // lastValues = lastValues + (props.data[(i + (prevDays / 4)) - j][key] ? 10 : 0)
+                //     }
+                //     // lastValues = 10
+                // } else if (i > (props.data.length - (prevDays / 2))) {
+                //     for (let j = 0; j < (prevDays / 2); j++) { // end
+                //         lastValues = lastValues + (props.data[i - j][key] ? 10 : 0)
+                //     }
+                // } else if (i < (prevDays / 2)) {
+                //     for (let j = 0; j < (prevDays / 2); j++) { // start
+                //         // console.clear()
+                //         // console.log(i + j)
+                //         lastValues = lastValues + (props.data[i + j][key] ? 10 : 0)
+                //     }
+                // }
+                    
+                // if (i > prevDays) { // add 10 for each true value looped by the prevDays
+                //     for (let j = 0; j < prevDays; j++) {
+                //         sum = sum + (props.data[i - j][key] ? 10 : 0)
+                //     }
+                // } else {
+                //     for (let j = 0; j < (i); j++) {
+                //         sum = sum + (props.data[i - j][key] ? 10 : 0)
+                //     }
+                // }
     
                 // calc avg and round to nearest tenth { eq = *Previous days added up* + *if (value === true) +10 else +0* / *if (index is less than the amount of days it looks back to calculate the avg) / i else / prevDays* }
+                // let avg = Math.round((lastValues + (value ? 10 : 0)) / ((i < prevDays ? i : prevDays) + 1) * 10) / 10
                 let avg = Math.round((sum + (value ? 10 : 0)) / ((i < prevDays ? i : prevDays) + 1) * 10) / 10
                 
                 if (k === 0) {
@@ -74,7 +118,7 @@ export default function LineGraphBoolean(props) {
                     type="range"
                     min="1"
                     max="200"
-                    step="1"
+                    step="2"
                     value={prevDays}
                     onChange={e => setPrevDays(parseInt(e.target.value))}
                     className="appearance-none bg-neutral-200 h-2 rounded-full hover:h-5 transition-all hover:px-1 px-0 w-full"

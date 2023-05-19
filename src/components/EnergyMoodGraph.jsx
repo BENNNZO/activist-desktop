@@ -3,7 +3,7 @@
 import React from 'react';
 import { LineChart, Line, CartesianGrid, Tooltip, ResponsiveContainer, Brush } from 'recharts';
 
-export default function LineGraph(props) {
+export default function EnergyMoodGraph(props) {
     return (
         <div className='flex flex-col gap-2 items-center w-full'>
             <div className='shadow-md rounded-t-xl bg-white overflow-hidden w-full h-full'>
