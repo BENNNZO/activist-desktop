@@ -44,9 +44,8 @@ export default function NavBar() {
                         className='py-1 px-4 rounded-full border border-var1 cursor-pointer transition-colors hover:bg-var5 bg-var1 hover:text-var1 text-var5'
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{
-                            delay: 0.15
-                        }}
+                        transition={{ delay: 0.15 }}
+                        onClick={() => push('/create-daily-entry')}
                     >
                         Create Daily Entry
                     </motion.li>
@@ -59,9 +58,7 @@ export default function NavBar() {
                         }}
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{
-                            delay: 0.2
-                        }}
+                        transition={{ delay: 0.2 }}
                     >
                         Sign Out
                     </motion.li>

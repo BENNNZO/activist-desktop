@@ -162,6 +162,19 @@ export default function page() {
                     data={timeFrame[0]}
                 />
             </div>
+            <div className='flex flex-row px-5 mt-5 gap-5 w-full h-96'>
+                <EnergyMoodGraph
+                    data={timeFrame[0]}
+                    keys={[
+                        { title: "Mood", color: "#8884d8" },
+                        { title: "Energy", color: "#82ca9d" }
+                    ]}
+                />
+                <RadarGraph
+                    data={timeFrame[0]}
+                    keys={{ title: "Mood", color: "#8884d8" }}
+                />
+            </div>
             {/* <div className='mt-5 px-5 h-96 w-full'>
                 <LineGraphBoolean2
                     data={timeFrame[0]}
@@ -200,19 +213,6 @@ export default function page() {
                         // { title: "Vape", color: "#e09c89" },
                         // { title: "Drink", color: "#e09c89" }
                     ]}
-                />
-            </div>
-            <div className='flex flex-row px-5 gap-5 w-full h-96'>
-                <EnergyMoodGraph
-                    data={timeFrame[0]}
-                    keys={[
-                        { title: "Mood", color: "#8884d8" },
-                        { title: "Energy", color: "#82ca9d" }
-                    ]}
-                />
-                <RadarGraph
-                    data={timeFrame[0]}
-                    keys={{ title: "Mood", color: "#8884d8" }}
                 />
             </div>
             <div className='h-[500px] p-5 w-full'>

@@ -43,9 +43,15 @@ export default function LineGraphBoolean(props) {
         setAvgData(avgDataControl)
     }, [props.data, prevDays, activeKeys])
 
+    useEffect(() => {
+        if (prevDays > props.data.length) {
+            setPrevDays(props.data.length)
+        }
+    }, [props.data])
+
     return (
         <div className='shadow-md rounded-t-xl bg-white overflow-hidden w-full h-full'>
-            <div className='flex flex-row items-center gap-5 py-1 px-3 h-[10%]'>
+            <div className='flex flex-row items-center gap-5 py-1 px-3 h-[15%]'>
                 {props.keys.map((key, i) => (
                     <label 
                         key={i} 
@@ -70,10 +76,23 @@ export default function LineGraphBoolean(props) {
                         <p className='select-none translate-y-[1px]' style={{ color: key.color }}>{key.title}</p>
                     </label>
                 ))}
+                <button 
+                    className='whitespace-nowrap text-neutral-600 border border-neutral-300 px-2 py-0.5 rounded-md'
+                    onClick={() => setActiveKeys(props.keys)}
+                >
+                    Activate All
+                </button>
+                <button 
+                    className='whitespace-nowrap text-neutral-600 border border-neutral-300 px-2 py-0.5 rounded-md'
+                    onClick={() => setActiveKeys([])}                            
+                >
+
+                    Deactivate All
+                </button>
                 <input
                     type="range"
                     min="1"
-                    max="200"
+                    max={props.data.length}
                     step="1"
                     value={prevDays}
                     onChange={e => setPrevDays(parseInt(e.target.value))}
@@ -87,7 +106,7 @@ export default function LineGraphBoolean(props) {
                     </p>
                 </div>
             </div>
-            <ResponsiveContainer height="90%">
+            <ResponsiveContainer height="85%">
                 <LineChart
                     data={avgData}
                     margin={{top: 0, left: 0, right: 0, bottom: 0}}
@@ -95,7 +114,12 @@ export default function LineGraphBoolean(props) {
                     <Brush stroke='#8884d8'/>
                     {/* <CartesianGrid strokeDasharray="5 5" vertical={true} verticalCoordinatesGenerator={(props2) => [(props2.width / props.data.length) * prevDays]}/> */}
                     <CartesianGrid strokeDasharray="5 5" vertical={false} />
-                    <Tooltip/>
+                    <Tooltip 
+                        allowEscapeViewBox={{ x: true, y: true }} 
+                        animationEasing='ease-out' 
+                        animationDuration={350}
+                        contentStyle={{ borderRadius: "5px" }}
+                    />
                     {props.keys.map((key, i) => (
                         <Line key={i} type={prevDays === 1 ? "monotone" : "basis"} dataKey={key.title} stroke={key.color} strokeWidth={3} dot={false} activeDot={false} animationDuration={250}/>
                     ))}

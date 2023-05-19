@@ -18,13 +18,15 @@ export default function EnergyMoodGraph(props) {
                     </div>
                 </div>
                 <ResponsiveContainer height="85%">
-                    <LineChart 
-                        data={props.data} 
-                        margin={{ top: 0, left: 0, right: 0, bottom: 0 }}
-                    >
+                    <LineChart data={props.data} margin={{ top: 0, left: 0, right: 0, bottom: 0 }}>
                         <Brush stroke='#8884d8'/>
                         <CartesianGrid strokeDasharray="5 5" vertical={false}/>
-                        <Tooltip />
+                        <Tooltip 
+                            allowEscapeViewBox={{ x: true, y: true }} 
+                            animationEasing='ease-out' 
+                            animationDuration={350}
+                            contentStyle={{ borderRadius: "5px" }}
+                        />
                         {props.keys.map((key, i) => (
                             <Line key={i} type="basis" dataKey={key.title} stroke={key.color} strokeWidth={3} dot={false} activeDot={false} animationDuration={250} />
                         ))}

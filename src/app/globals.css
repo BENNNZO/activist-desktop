@@ -45,7 +45,7 @@
 }
 
 .boolean_custom_checkbox {
-    height: 50%;
+    height: 35%;
     aspect-ratio: 1;
     border-radius: 100%;
     transition: all 0.3s ease-out;
