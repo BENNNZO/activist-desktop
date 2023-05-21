@@ -46,6 +46,8 @@ export default function LineGraphBoolean(props) {
     useEffect(() => {
         if (prevDays > props.data.length) {
             setPrevDays(props.data.length)
+        } else if (props.data.length === 0) {
+            setPrevDays(30)
         }
     }, [props.data])
 
