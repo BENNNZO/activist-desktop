@@ -115,7 +115,6 @@ export default function LineGraphBoolean(props) {
                 >
                     <Brush stroke='#8884d8'/>
                     {/* <CartesianGrid strokeDasharray="5 5" vertical={true} verticalCoordinatesGenerator={(props2) => [(props2.width / props.data.length) * prevDays]}/> */}
-                    {/* <CartesianGrid strokeDasharray="5 5" vertical={true} verticalCoordinatesGenerator={(props2) => [(props2.width / props.data.length) * prevDays]}/> */}
                     <CartesianGrid strokeDasharray="5 5" vertical={false} />
                     <Tooltip 
                         allowEscapeViewBox={{ x: true, y: true }} 

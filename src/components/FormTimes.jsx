@@ -10,9 +10,11 @@ import Arrow from '@/assets/svg/dropdown/arrow.svg'
 // import 'react-time-picker/dist/TimePicker.css';
 // import 'react-clock/dist/Clock.css';
 
-export default function FormTimes() {
+export default function FormTimes(props) {
     const [timeTo, setTimeTo] = useState("")
     const [timeFrom, setTimeFrom] = useState("")
+    // const [wakeUp, setWakeUp] = useState(12)
+    // const [sleep, setSleep] = useState(12)
 
     return (
         <div className='flex flex-col gap-4'>
@@ -23,7 +25,15 @@ export default function FormTimes() {
                 transition={{ delay: 0.3 }}
             >
                 <p className='text-center text-lg text-neutral-500 mb-2'>Wake Up:</p>
-                <TimePicker disableClock required className="time_picker_styles" hourPlaceholder='hh' minutePlaceholder='mm' onChange={setTimeTo} value={timeTo} />
+                <TimePicker
+                    disableClock
+                    required
+                    className="time_picker_styles"
+                    hourPlaceholder='hh'
+                    minutePlaceholder='mm'
+                    onChange={props.wakeUpChange}
+                    value={props.wakeUpValue}
+                />
             </motion.div>
             <motion.div 
                 className='p-3 border border-neutral-300 rounded-lg shadow-md'
@@ -32,8 +42,38 @@ export default function FormTimes() {
                 transition={{ delay: 0.4 }}
             >
                 <p className='text-center text-lg text-neutral-500 mb-2'>Sleep:</p>
-                <TimePicker disableClock required className="time_picker_styles" hourPlaceholder='hh' minutePlaceholder='mm' onChange={setTimeFrom} value={timeFrom} />
+                <TimePicker
+                    disableClock
+                    required
+                    className="time_picker_styles"
+                    hourPlaceholder='hh'
+                    minutePlaceholder='mm'
+                    onChange={props.sleepChange}
+                    value={props.sleepValue}
+                />
             </motion.div>
+            {/* <div className='flex flex-row justify-between gap-5'>
+                <ul className='w-full bg-white border border-neutral-300 rounded-lg'>
+                    <p className='px-3 py-1'>
+                        {`${wakeUp}pm`}
+                    </p>
+                    {[...Array(12)].map((e, i) => (
+                        <li key={i} className={`py-1 px-3 ${i !== 0 ? 'border-t border-t-neutral-300' : ''}`}>
+                            <p>{i === 0 ? '12' : i}am</p>
+                        </li>
+                    ))}
+                </ul>
+                <ul className='w-full bg-white border border-neutral-300 rounded-lg'>
+                    <p className='px-3 py-1'>
+                        {`${wakeUp}am`}
+                    </p>
+                    {[...Array(12)].map((e, i) => (
+                        <li key={i} className={`py-1 px-3 ${i !== 0 ? 'border-t border-t-neutral-300' : ''}`}>
+                            <p>{i === 0 ? '12' : i}pm</p>
+                        </li>
+                    ))}
+                </ul>
+            </div> */}
         </div>
     )
 }

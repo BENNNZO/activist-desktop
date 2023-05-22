@@ -100,6 +100,7 @@
     display: flex;
     flex-direction: row;
     gap: 5px;
+    align-items: center;
     flex-grow: 1;
     padding: 0 2px;
     box-sizing: content-box;
@@ -144,8 +145,8 @@
 }
 
 .time_picker_styles .react-time-picker__inputGroup__input--hasLeadingZero {
-    margin-left: -0.54em;
-    padding-left: calc(1px + 0.54em);
+    margin-left: -0.35em;
+    /* padding-left: calc(1px + 0.54em); */
 }
 
 .time_picker_styles .react-time-picker__inputGroup__amPm {

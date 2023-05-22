@@ -5,10 +5,20 @@ import React, { useState, useEffect } from 'react';
 import FormBoolean from '@/components/FormBoolean';
 import FormTimes from '@/components/FormTimes';
 import { motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import { useSession } from 'next-auth/react';
 
 export default function page() {
+    const { push } = useRouter()
+    const { data: session } = useSession()
+
     /* ------------------------------- USE CLIENT ------------------------------- */
     const [form, setForm] = useState({})
+    const [wakeUp, setWakeUp] = useState("11:23")
+    const [sleep, setSleep] = useState("15:45")
+    const [mood, setMood] = useState(0)
+    const [energy, setEnergy] = useState(0)
 
     /* ---------------------------------- UTILS --------------------------------- */
     const Booleans = [
@@ -78,8 +88,21 @@ export default function page() {
     }
 
     /* -------------------------------- HANDLERS -------------------------------- */
-    function handleFormSubmit() {
+    function handleFormSubmit(e) {
         e.preventDefault()
+        axios.post(`/api/data/${session?.user.id}`, {
+            FormattedDate: getDate(),
+            TimeAwake: [
+                parseInt(wakeUp.split(":")[0]),
+                parseInt(sleep.split(":")[0])
+            ],
+            Mood: mood,
+            Energy: energy,
+            form,
+
+        })
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
     }
 
     function handleClick(key) {
@@ -110,7 +133,50 @@ export default function page() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.2 }}
                 />
-                <FormTimes/>
+                <FormTimes
+                    wakeUpChange={setWakeUp}
+                    sleepChange={setSleep}
+                    wakeUpValue={wakeUp}
+                    sleepValue={sleep}
+                />
+                <motion.span 
+                    className='bg-neutral-300 h-px'
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                />
+                <div className='flex flex-col gap-5 w-full'>
+                    <div className='px-5 py-3 bg-white border grid place-items-center gap-2 border-neutral-300 shadow-md rounded-lg'>
+                        <h2 className='text-xl text-neutral-500'>Mood</h2>
+                        <div className='grid grid-cols-[80%_20%] w-full'>
+                            <input
+                                type="range"
+                                min="0"
+                                max="10"
+                                step="1"
+                                className='w-full'
+                                onChange={e => setMood(e.target.value)}
+                                value={mood}
+                            />
+                            <p className='text-center text-lg text-neutral-500'>{mood}</p>
+                        </div>
+                    </div>
+                    <div className='px-5 py-3 bg-white border grid place-items-center gap-2 border-neutral-300 shadow-md rounded-lg'>
+                        <h2 className='text-xl text-neutral-500'>Energy</h2>
+                        <div className='grid grid-cols-[80%_20%] w-full'>
+                            <input
+                                type="range"
+                                min="0"
+                                max="10"
+                                step="1"
+                                className='w-full'
+                                onChange={e => setEnergy(e.target.value)}
+                                value={energy}
+                            />
+                            <p className='text-center text-lg text-neutral-500'>{energy}</p>
+                        </div>
+                    </div>
+                </div>
                 <motion.span 
                     className='bg-neutral-300 h-px'
                     initial={{ opacity: 0 }}
