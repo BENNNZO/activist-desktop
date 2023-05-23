@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 
 export default function BooleanGraph(props) {
-    const [data, setData] = useState([])
     const [linesData, setLinesData] = useState([])
 
     useEffect(() => {
@@ -47,9 +46,6 @@ export default function BooleanGraph(props) {
         }
         setLinesData(lines)
     }, [props.data])
-
-    useEffect(() => {
-    }, data)
 
     return (
         <div className='w-full h-full flex flex-row'>

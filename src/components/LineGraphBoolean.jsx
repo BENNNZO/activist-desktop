@@ -53,13 +53,13 @@ export default function LineGraphBoolean(props) {
 
     return (
         <div className='shadow-md rounded-t-xl bg-white overflow-hidden w-full h-full'>
-            <div className='flex flex-row items-center gap-5 py-1 px-3 h-[15%]'>
+            <div className='flex flex-row items-center gap-3 py-1 px-3 h-[15%]'>
                 {props.keys.map((key, i) => (
                     <label 
                         key={i} 
                         htmlFor={key.title} 
                         style={activeKeys.filter(keys => keys.title === key.title).length === 0 ? { opacity: "0.5", transform: "translate(2px, -2px)" } : { opacity: "1", transform: "translate(-2px, -2px)" }}
-                        className='h-full flex flex-row items-center gap-3 transition-all cursor-pointer' 
+                        className='h-full flex flex-row items-center gap-1 transition-all cursor-pointer' 
                     >
                         <input 
                             type="checkbox" 
@@ -75,7 +75,7 @@ export default function LineGraphBoolean(props) {
                             className='boolean_checkbox'
                         />
                         <div className='boolean_custom_checkbox' style={{ backgroundColor: key.color }} />
-                        <p className='select-none translate-y-[1px]' style={{ color: key.color }}>{key.title}</p>
+                        <p className='select-none' style={{ color: key.color }}>{key.title}</p>
                     </label>
                 ))}
                 <button 

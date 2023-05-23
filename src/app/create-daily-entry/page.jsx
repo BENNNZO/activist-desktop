@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useSession } from 'next-auth/react';
 
 export default function page() {
-    const { push } = useRouter()
+    const router = useRouter()
     const { data: session } = useSession()
 
     /* ------------------------------- USE CLIENT ------------------------------- */
@@ -19,48 +19,61 @@ export default function page() {
     const [sleep, setSleep] = useState("15:45")
     const [mood, setMood] = useState(0)
     const [energy, setEnergy] = useState(0)
+    const [response, setResponse] = useState("")
 
     /* ---------------------------------- UTILS --------------------------------- */
     const Booleans = [
         {
-            question: "Breakfast",
+            question: "Did you eat breakfast?",
             key: "Breakfast"
         },
         {
-            question: "Lunch",
+            question: "Did you eat lunch?",
             key: "Lunch"
         },
         {
-            question: "Dinner",
+            question: "Did you eat dinner?",
             key: "Dinner"
         },
         {
-            question: "Sleep",
+            question: "Did you get good sleep?",
             key: "Sleep"
         },
         {
-            question: "Headache",
+            question: "Did you have a headache?",
             key: "Headache"
         },
         {
-            question: "Exercise",
+            question: "Did you exercise?",
             key: "Exercise"
         },
         {
-            question: "Shower",
+            question: "Did you shower?",
             key: "Shower"
         },
         {
-            question: "Work",
+            question: "Did you work?",
             key: "Work"
         },
         {
-            question: "Game",
+            question: "Did you game?",
             key: "Game"
         },
         {
-            question: "Music",
+            question: "Did you do any or listen to music?",
             key: "Music"
+        },
+        {
+            question: "Did you smoke?",
+            key: "Smoke"
+        },
+        {
+            question: "Did you vape?",
+            key: "Vape"
+        },
+        {
+            question: "Did you drink?",
+            key: "Drink"
         }
     ]
 
@@ -90,18 +103,25 @@ export default function page() {
     /* -------------------------------- HANDLERS -------------------------------- */
     function handleFormSubmit(e) {
         e.preventDefault()
+        let formatteWakeUp = parseInt(wakeUp.split(":")[0]) + parseFloat(wakeUp.split(":")[1] / 60)
+        let formatteSleep = parseInt(sleep.split(":")[0]) + parseFloat(sleep.split(":")[1] / 60)
         axios.post(`/api/data/${session?.user.id}`, {
             FormattedDate: getDate(),
             TimeAwake: [
-                parseInt(wakeUp.split(":")[0]),
-                parseInt(sleep.split(":")[0])
+                formatteWakeUp,
+                formatteSleep
             ],
             Mood: mood,
             Energy: energy,
             form,
 
         })
-        .then(res => console.log(res))
+        .then(res => {
+            setResponse(res.data)
+            if (res.data !== "dpae") {
+                router.push(`dashboard/${session?.user.id}`)
+            }
+        })
         .catch(err => console.log(err))
     }
 
@@ -146,8 +166,13 @@ export default function page() {
                     transition={{ delay: 0.4 }}
                 />
                 <div className='flex flex-col gap-5 w-full'>
-                    <div className='px-5 py-3 bg-white border grid place-items-center gap-2 border-neutral-300 shadow-md rounded-lg'>
-                        <h2 className='text-xl text-neutral-500'>Mood</h2>
+                    <motion.div
+                        className='px-5 py-3 bg-white border grid place-items-center gap-2 border-neutral-300 shadow-md rounded-lg'
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                    >
+                        <h2 className='text-lg text-neutral-500'>Mood</h2>
                         <div className='grid grid-cols-[80%_20%] w-full'>
                             <input
                                 type="range"
@@ -160,9 +185,14 @@ export default function page() {
                             />
                             <p className='text-center text-lg text-neutral-500'>{mood}</p>
                         </div>
-                    </div>
-                    <div className='px-5 py-3 bg-white border grid place-items-center gap-2 border-neutral-300 shadow-md rounded-lg'>
-                        <h2 className='text-xl text-neutral-500'>Energy</h2>
+                    </motion.div>
+                    <motion.div
+                        className='px-5 py-3 bg-white border grid place-items-center gap-2 border-neutral-300 shadow-md rounded-lg'
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.6 }}
+                    >
+                        <h2 className='text-lg text-neutral-500'>Energy</h2>
                         <div className='grid grid-cols-[80%_20%] w-full'>
                             <input
                                 type="range"
@@ -175,13 +205,13 @@ export default function page() {
                             />
                             <p className='text-center text-lg text-neutral-500'>{energy}</p>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
                 <motion.span 
                     className='bg-neutral-300 h-px'
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 0.4 }}
+                    transition={{ delay: 0.7 }}
                 />
                 <div className='flex flex-col gap-3'>
                     {Booleans.map((e, i) => (
@@ -192,13 +222,20 @@ export default function page() {
                     className='bg-neutral-300 h-px'
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 1.5 }}
+                    transition={{ delay: 1.7 }}
                 />
+                {
+                    response !== "dpae" ? null : (
+                        <p className='text-center bg-red-100 border border-red-200 py-2 rounded-lg shadow-md'>
+                            Data Point Already Exists!
+                        </p>
+                    )
+                }
                 <motion.button 
                     className='bg-blue-500 w-full py-2 rounded-lg text-white hover:bg-blue-400 transition-colors'
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 1.6 }}
+                    transition={{ delay: 1.8 }}
                 >
                     Submit
                 </motion.button>

@@ -11,7 +11,6 @@ import RadarGraph from '@/components/RadarGraph'
 import BooleanGraph from '@/components/BooleanGraph';
 import EnergyMoodGraph from '@/components/EnergyMoodGraph';
 import LineGraphBoolean from '@/components/LineGraphBoolean';
-import LineGraphBoolean2 from '@/components/LineGraphBoolean2';
 import TimeAwakeAreaGraph from '@/components/TimeAwakeAreaGraph';
 import TimeAwakeBarGraph from '@/components/TimeAwakeBarGraph';
 
@@ -175,26 +174,6 @@ export default function page() {
                     keys={{ title: "Mood", color: "#8884d8" }}
                 />
             </div>
-            {/* <div className='mt-5 px-5 h-96 w-full'>
-                <LineGraphBoolean2
-                    data={timeFrame[0]}
-                    keys={[
-                        { title: "Breakfast", color: "#8884d8" }, // purple
-                        { title: "Lunch", color: "#82ca9d" }, // light green
-                        { title: "Dinner", color: "#e09c89" }, // light orange
-                        { title: "GoodSleep", color: "#347ced" }, // blue
-                        { title: "Headache", color: "#bfbe78" }, // yellow
-                        { title: "Exercise", color: "#c76767" }, // red
-                        { title: "Shower", color: "#e820bd" }, // pink
-                        { title: "Work", color: "#81c6c7" }, // teal
-                        { title: "Game", color: "#409946" }, // lime green
-                        { title: "Music", color: "#000000" }, // black
-                        // { title: "Smoke", color: "#e09c89" },
-                        // { title: "Vape", color: "#e09c89" },
-                        // { title: "Drink", color: "#e09c89" }
-                   , ]}
-                />
-            </div> */}
             <div className='mt-5 px-5 h-96 w-full'>
                 <LineGraphBoolean
                     data={timeFrame[0]}
@@ -209,9 +188,9 @@ export default function page() {
                         { title: "Work", color: "#81c6c7" }, // teal
                         { title: "Game", color: "#409946" }, // lime green
                         { title: "Music", color: "#000000" }, // black
-                        // { title: "Smoke", color: "#e09c89" },
-                        // { title: "Vape", color: "#e09c89" },
-                        // { title: "Drink", color: "#e09c89" }
+                        { title: "Smoke", color: "#e09c89" },
+                        { title: "Vape", color: "#e09c89" },
+                        { title: "Drink", color: "#e09c89" }
                     ]}
                 />
             </div>
