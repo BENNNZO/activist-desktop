@@ -40,7 +40,10 @@ export async function POST(req, { params }) {
     try {
         await connect()
 
-        const dataPointExists = await DataPoint.findOne({ FormattedDate: FormattedDate, User: params.userId })
+        // const dataPointExists = await DataPoint.findOne({ FormattedDate: FormattedDate, User: params.userId })
+        const dataPointExists = false
+
+        console.log(form)
 
         if (!dataPointExists) {
             DataPoint.create({
@@ -50,19 +53,19 @@ export async function POST(req, { params }) {
                 FormattedDate,
                 Mood,
                 Energy,
-                 Breakfast: form.Breakfast === undefined ? false : true,
-                Lunch: form.Lunch === undefined ? false : true,
-                Dinner: form.Dinner === undefined ? false : true,
-                GoodSleep: form.Sleep === undefined ? false : true,
-                Headache: form.Headache === undefined ? false : true,
-                Exercise: form.Exercise === undefined ? false : true,
-                Shower: form.Shower === undefined ? false : true,
-                Work: form.Work === undefined ? false : true,
-                Game: form.Game === undefined ? false : true,
-                Music: form.Music === undefined ? false : true,
-                Smoke: form.Smoke === undefined ? false : true,
-                Vape: form.Vape === undefined ? false : true,
-                Drink: form.Drink === undefined ? false : true
+                Breakfast: form.Breakfast === undefined ? false : form.Breakfast,
+                Lunch: form.Lunch === undefined ? false : form.Lunch,
+                Dinner: form.Dinner === undefined ? false : form.Dinner,
+                GoodSleep: form.Sleep === undefined ? false : form.Sleep,
+                Headache: form.Headache === undefined ? false : form.Headache,
+                Exercise: form.Exercise === undefined ? false : form.Exercise,
+                Shower: form.Shower === undefined ? false : form.Shower,
+                Work: form.Work === undefined ? false : form.Work,
+                Game: form.Game === undefined ? false : form.Game,
+                Music: form.Music === undefined ? false : form.Music,
+                Smoke: form.Smoke === undefined ? false : form.Smoke,
+                Vape: form.Vape === undefined ? false : form.Vape,
+                Drink: form.Drink === undefined ? false : form.Drink
             })
             return new Response("successfully created data point", { status: 200 })
         } else {

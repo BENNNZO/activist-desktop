@@ -105,6 +105,17 @@ export default function page() {
         e.preventDefault()
         let formatteWakeUp = parseInt(wakeUp.split(":")[0]) + parseFloat(wakeUp.split(":")[1] / 60)
         let formatteSleep = parseInt(sleep.split(":")[0]) + parseFloat(sleep.split(":")[1] / 60)
+        console.log({
+            FormattedDate: getDate(),
+            TimeAwake: [
+                formatteWakeUp,
+                formatteSleep
+            ],
+            Mood: mood,
+            Energy: energy,
+            form,
+
+        })
         axios.post(`/api/data/${session?.user.id}`, {
             FormattedDate: getDate(),
             TimeAwake: [

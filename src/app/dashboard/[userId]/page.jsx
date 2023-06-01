@@ -46,18 +46,39 @@ export default function page() {
     }, [session])
 
     function handleCreateDataPoint() {
-        console.log("creat point")
         let i = 0
-        setInterval(() => {
+        const dataPointInterval = setInterval(() => {
+            const formData = {
+                FormattedDate: "June-01-2023",
+                TimeAwake: [Math.random() * 12, Math.random() * 12 + 12],
+                Mood: Math.round(Math.random() * 10),
+                Energy: Math.round(Math.random() * 10),
+                form: {
+                    Breakfast: Math.random() >= 0.5 ? false : true,
+                    Lunch: Math.random() >= 0.5 ? false : true,
+                    Dinner: Math.random() >= 0.5 ? false : true,
+                    Sleep: Math.random() >= 0.5 ? false : true,
+                    Headache: Math.random() >= 0.5 ? false : true,
+                    Exercise: Math.random() >= 0.5 ? false : true,
+                    Shower: Math.random() >= 0.5 ? false : true,
+                    Work: Math.random() >= 0.5 ? false : true,
+                    Game: Math.random() >= 0.5 ? false : true,
+                    Music: Math.random() >= 0.5 ? false : true,
+                    Smoke: Math.random() >= 0.5 ? false : true,
+                    Vape: Math.random() >= 0.5 ? false : true,
+                    Drink: Math.random() >= 0.5 ? false : true
+                }
+            }
+            console.log(formData)
             if (i < 30) {
                 i++
-                axios.post(`/api/data/${session?.user.id}`)
+                axios.post(`/api/data/${session?.user.id}`, formData)
                 .then(() => {
                     handleFetchDataPoint()
                 })
                 .catch(err => console.log(err))
             } else {
-                clearInterval()
+                clearInterval(dataPointInterval)
             }
         }, 50);
     }
