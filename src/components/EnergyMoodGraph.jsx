@@ -9,8 +9,8 @@ export default function EnergyMoodGraph(props) {
             <div className='shadow-md rounded-t-xl bg-white overflow-hidden w-full h-full'>
                 <div className='flex flex-row justify-between px-4 h-[15%]'>
                     <div className='flex flex-row justify-center gap-5'>
-                        {props.keys.map(key => (
-                            <div className='flex flex-row gap-2 items-center py-3'>
+                        {props.keys.map((key, i) => (
+                            <div key={i} className='flex flex-row gap-2 items-center py-3'>
                                 <span className={'aspect-square h-4 inline-block rounded-full'} style={{ backgroundColor: key.color }}/>
                                 <p style={{ color: key.color }}>{key.title}</p>
                             </div>

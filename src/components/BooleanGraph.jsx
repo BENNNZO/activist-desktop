@@ -52,7 +52,7 @@ export default function BooleanGraph(props) {
         <div className='w-full h-full flex flex-row'>
             <div className='flex flex-col justify-between py-5 gap-1'>
                 {props.dataKeys.map((key, i) => ( // list of keys on left of graph
-                    <div className='relative flex flex-row gap-5 items-center rounded-l-full px-1 pr-5 overflow-hidden h-[7rem]'>
+                    <div key={i} className='relative flex flex-row gap-5 items-center rounded-l-full px-1 pr-5 overflow-hidden h-[7rem]'>
                         <div className='absolute top-0 left-0 w-full h-full opacity-10' style={{ backgroundColor: `${props.dataColors[i]}` }} />
                         <div className='w-4 h-4 rounded-full' style={{ backgroundColor: `${props.dataColors[i]}` }} />
                         <p style={{ color: `${props.dataColors[i]}` }}>{key}</p>
