@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation'
 
 import GoogleIcon from '@/assets/svg/login/Google.svg'
 
-export default function page() {
+export default function SignUp() {
     const { push } = useRouter()
 
     const usernameRef = useRef()
@@ -27,6 +27,7 @@ export default function page() {
         passwordRef.current.value = "password123$123$123$"
         usernameRef.current.value = "Benjamin Phillips"
         emailRef.current.value = "test@gmail.com"
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     function handleCredentialSignOn(e) {

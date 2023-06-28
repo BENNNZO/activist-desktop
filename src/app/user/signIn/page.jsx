@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 import GoogleIcon from '@/assets/svg/login/Google.svg'
 
-export default function page() {
+export default function SignIn() {
     const seachParams = useSearchParams()
 
     const [providers, setProviders] = useState(null)
@@ -21,6 +21,7 @@ export default function page() {
         setupProviders()
         passwordRef.current.value = "password123$123$123$"
         emailRef.current.value = "test@gmail.com"
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const passwordRef = useRef()
