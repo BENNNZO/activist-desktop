@@ -24,6 +24,7 @@ export default function LineGraph(props) {
                 return newData
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.data, set])
 
     return (

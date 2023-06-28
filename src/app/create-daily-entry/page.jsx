@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 
-export default function page() {
+export default function DailyEntry() {
     const router = useRouter()
     const { data: session } = useSession()
 

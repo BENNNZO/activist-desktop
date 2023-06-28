@@ -85,6 +85,7 @@ export default function LineGraphBoolean2(props) {
         }
 
         setAvgData(avgDataControl)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.data, prevDays, activeKeys])
 
     return (

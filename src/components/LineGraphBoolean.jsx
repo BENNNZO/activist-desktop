@@ -41,6 +41,7 @@ export default function LineGraphBoolean(props) {
         }
 
         setAvgData(avgDataControl)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.data, prevDays, activeKeys])
 
     useEffect(() => {
@@ -49,6 +50,7 @@ export default function LineGraphBoolean(props) {
         } else if (props.data.length === 0) {
             setPrevDays(30)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.data])
 
     return (

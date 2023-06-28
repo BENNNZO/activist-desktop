@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { motion, useAnimate, stagger, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import Logo from '@/assets/svg/navbar/logo.svg'
 

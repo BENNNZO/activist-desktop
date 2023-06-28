@@ -45,6 +45,7 @@ export default function BooleanGraph(props) {
             lines.push(linesWrapper)
         }
         setLinesData(lines)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.data])
 
     return (

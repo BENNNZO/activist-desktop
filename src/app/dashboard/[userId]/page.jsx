@@ -16,7 +16,7 @@ import TimeAwakeBarGraph from '@/components/TimeAwakeBarGraph';
 
 import dropdownArrow from '@/assets/svg/dropdown/arrow.svg'
 
-export default function page() {
+export default function Dashboard() {
     const { push } = useRouter()
     const { data: session } = useSession()
     const params = useParams()

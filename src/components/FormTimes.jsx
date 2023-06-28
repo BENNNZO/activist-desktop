@@ -1,21 +1,10 @@
 "use client"
 
-import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
+import React from 'react';
 import TimePicker from 'react-time-picker'
 import { motion } from 'framer-motion';
 
-import Arrow from '@/assets/svg/dropdown/arrow.svg'
-
-// import 'react-time-picker/dist/TimePicker.css';
-// import 'react-clock/dist/Clock.css';
-
 export default function FormTimes(props) {
-    const [timeTo, setTimeTo] = useState("")
-    const [timeFrom, setTimeFrom] = useState("")
-    // const [wakeUp, setWakeUp] = useState(12)
-    // const [sleep, setSleep] = useState(12)
-
     return (
         <div className='flex flex-col gap-4'>
             <motion.div 

@@ -12,6 +12,7 @@ export default function TimeAwakeBarGraph(props) {
             setData(data => [...data, { TimeAwake: e.TimeAwake[1] - e.TimeAwake[0] }])
         })
 
+            // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.data])
 
     return (
