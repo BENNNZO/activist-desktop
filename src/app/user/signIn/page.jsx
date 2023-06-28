@@ -107,7 +107,7 @@ export default function SignIn() {
                 </button>
             </div>
             <p className='text-xs self-center text-neutral-300'>
-                Don't have an account?
+                Do not have an account?
                 <Link 
                     className=' text-sky-300 ml-1'
                     href='/user/signUp'

@@ -30,6 +30,7 @@ export default function Dashboard() {
         axios.get(`/api/user/get-user/${params.userId}`)
         .then(res => setUserData(res.data))
         .catch(err => console.log(err))
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
@@ -43,6 +44,7 @@ export default function Dashboard() {
             })
             .catch(err => console.log(err))
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [session])
 
     function handleCreateDataPoint() {
